@@ -1,0 +1,11 @@
+
+-------------------------------------------------------Line1: Shengavit S.Taronc 15/4
+Line2: 
+Post: 0055
+Title: All Butter Croissant
+Price: 0.75
+Qty: 2
+Title: Chocolate Croissant
+Price: 0.95
+Qty: 1
+-------------------------------------------------------

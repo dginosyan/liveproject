@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="fragments/header" />
+
+<body>
+
+<nav th:insert="fragments/nav"></nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col">
+            <h1>Your basket</h1>
+
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="entry,iterStat : *{basket.getBasketItems().entrySet()}">
+                        <td th:text="${entry.getKey().getTitle()}">Item</td>
+                        <td>
+                            <form method="post" th:action="@{/basket/decrease}" enctype="multipart/form-data" style="display: inline">
+                                <input type="hidden" name="id" th:value="${entry.getKey().getId()}">
+                                <input type="hidden" name="abbr" th:value="${entry.getKey().getAbbr()}">
+                                <input type="hidden" name="title" th:value="${entry.getKey().getTitle()}">
+                                <input type="hidden" name="price" th:value="${entry.getKey().getPrice()}">
+                                <button class="btn btn-warning">-</button>
+                            </form>
+                            <span th:text="${entry.getValue()}">0</span>
+                            <form method="post" th:action="@{/basket/increase}" enctype="multipart/form-data" style="display: inline">
+                                <input type="hidden" name="id" th:value="${entry.getKey().getId()}">
+                                <input type="hidden" name="abbr" th:value="${entry.getKey().getAbbr()}">
+                                <input type="hidden" name="title" th:value="${entry.getKey().getTitle()}">
+                                <input type="hidden" name="price" th:value="${entry.getKey().getPrice()}">
+                                <button class="btn btn-success">+</button>
+                            </form>
+                        </td>
+                        <td th:text="${entry.getValue() * entry.getKey().getPrice()}">0</td>
+                        <td>
+                            <form method="post" th:action="@{/basket}" enctype="multipart/form-data">
+                                <input type="hidden" name="id" th:value="${entry.getKey().getId()}">
+                                <input type="hidden" name="abbr" th:value="${entry.getKey().getAbbr()}">
+                                <input type="hidden" name="title" th:value="${entry.getKey().getTitle()}">
+                                <input type="hidden" name="price" th:value="${entry.getKey().getPrice()}">
+                                <button class="btn btn-danger float-right">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+
+    <div class="row">
+
+        <div class="col">
+            <h1>Delivery address</h1>
+
+            <form method="post" enctype="multipart/form-data" th:action="@{/order}">
+                <div>
+                    <label>Address Line 1</label>
+                    <input class="form-control" th:name="line1">
+                </div>
+
+                <div>
+                    <label>Address Line 2</label>
+                    <input class="form-control" th:name="line2">
+                </div>
+
+                <div>
+                    <label>Postcode</label>
+                    <input class="form-control" th:name="postcode">
+                </div>
+
+                <div>
+                    <button style="margin: 30px 0;" class="btn btn-primary float-right">Complete order</button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+<div th:insert="fragments/footer"></div>
+
+<style>
+    tr {
+        border-top: 1px solid gray;
+    }
+    thead {
+        background: lightgray;
+    }
+    tr:last-child {
+        border-bottom: 1px solid gray;
+    }
+    td, th {
+        padding: 10px;
+    }
+    h1 {
+        margin-top: 70px;
+    }
+</style>
+
+</body>
+
+</html>

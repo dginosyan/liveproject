@@ -1,8 +1,10 @@
 package domain.pastries;
 
+import domain.item.Item;
+
 import java.text.DecimalFormat;
 
-public class PastryDto {
+public class PastryDto implements Item {
     private Long id;
     private String abbr;
     private String title;
@@ -31,18 +33,22 @@ public class PastryDto {
         this.abbr = abbr;
     }
 
+    @Override
     public String getTitle() {
         return title;
     }
 
+    @Override
     public void setTitle(String title) {
         this.title = title;
     }
 
+    @Override
     public double getPrice() {
         return price;
     }
 
+    @Override
     public void setPrice(double price) {
         this.price = price;
     }

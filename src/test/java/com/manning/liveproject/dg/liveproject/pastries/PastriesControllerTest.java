@@ -8,6 +8,7 @@ import java.util.Collections;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import domain.basket.BasketServicePort;
 import domain.pastries.PastryDto;
 import domain.pastries.PastryServicePort;
 import org.hamcrest.Matchers;
@@ -32,6 +33,9 @@ class PastriesControllerTest {
 
     @MockBean
     PastryServicePort pastryServicePort;
+
+    @MockBean
+    BasketServicePort basketServicePort;
 
     @BeforeEach
     void setUp() {

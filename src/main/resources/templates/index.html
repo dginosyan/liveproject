@@ -1,52 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>SweetHome Cake Factory</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="/css/shop-homepage.css" rel="stylesheet">
-
+<head th:insert="fragments/header">
 </head>
 
 <body>
 
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">SweetHome</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Services</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<nav th:insert="fragments/nav"></nav>
 
 <!-- Page Content -->
 <div class="container">
@@ -96,18 +56,24 @@
 
             <div class="row">
 
-                <div class="col-lg-4 col-md-6 mb-4" th:each="pastry,iterStat : ${pastries}">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h4 class="card-title">
-                                <a class="item-title" href="#" th:text="${pastry.getTitle()}">Item One</a>
-                            </h4>
-                            <h5 th:text="${'£' + pastry.getFormattedPrice()}">$24.99</h5>
+                <div class="col-lg-4 col-md-6 mb-4" th:each="pastry,iterStat : *{pastries}">
+                    <form method="post" th:action="@{/}" enctype="multipart/form-data">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a class="item-title" href="#" th:text="${pastry.getTitle()}">Item One</a>
+                                    <input type="hidden" th:name="id" th:value="${pastry.getId()}">
+                                    <input type="hidden" th:name="abbr" th:value="${pastry.getAbbr()}">
+                                    <input type="hidden" th:name="title" th:value="${pastry.getTitle()}">
+                                    <input type="hidden" th:name="price" th:value="${pastry.getPrice()}">
+                                </h4>
+                                <h5 th:text="${'£' + pastry.getFormattedPrice()}">$24.99</h5>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted"><button class="btn btn-primary float-right">Add</button></small>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Available soon!</small>
-                        </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>
@@ -122,17 +88,7 @@
 </div>
 <!-- /.container -->
 
-<!-- Footer -->
-<footer class="py-5 bg-dark">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2020</p>
-    </div>
-    <!-- /.container -->
-</footer>
-
-<!-- Bootstrap core JavaScript -->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<div th:insert="fragments/footer"></div>
 
 </body>
 
